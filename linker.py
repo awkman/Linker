@@ -13,7 +13,7 @@ class Linker:
 		return False
 
 	def show_link( self, widget, data = None ):
-		# get text in the textview widget
+		# get all text in the textview widget
 		buffer = self.textView.get_buffer()
 		start = buffer.get_iter_at_offset( 0 )
 		end = buffer.get_iter_at_offset( buffer.get_char_count() )
@@ -35,8 +35,6 @@ class Linker:
 				links.append( link )
 				links_text += ' ' + link
 		# print links
-		sys.stdout.flush()
-		#os.execvp( '/usr/bin/firefox ', links )
 		os.system( "/usr/bin/firefox " + links_text )
 
 	def destroy( self, widget, data = None ):
@@ -48,29 +46,33 @@ class Linker:
 		self.window.connect( "delete_event", self.delete_event )
 		self.window.connect( "destroy", self.destroy )
 
+		# setup window settings
 		self.window.set_border_width( 10 )
 		self.window.set_resizable( True )
 		self.window.set_title( "linker" )
 		self.window.set_size_request( 200, 500 )
 
+		# setup text view settings
 		self.textView = gtk.TextView()
 		self.textView.set_editable( True )
 		self.textView.set_cursor_visible( True )
 		self.textView.set_size_request( 200, 450 )
 
+		# setup scroll window settings
 		self.sw = gtk.ScrolledWindow()
 		self.sw.set_policy( gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC )
 		self.sw.add( self.textView )
 
+		# setup button settings
 		self.button = gtk.Button( "Show" )
 		self.button.connect( "clicked", self.show_link, None )
 
+		# setup vbox settings
 		self.vbox = gtk.VBox( False, 0 )
 		self.vbox.pack_start( self.sw )
 		self.vbox.pack_end( self.button )
 
 		self.window.add( self.vbox )
-
 		tb = self.textView.get_buffer()
 
 		self.button.show()
@@ -78,7 +80,6 @@ class Linker:
 		self.sw.show()
 		self.vbox.show()
 		self.window.show()
-
 	
 	def main( self ):
 		gtk.main()
