@@ -1,0 +1,17 @@
+Program: Linker
+
+Author: awkman
+
+E-mail: shengjhih@gmail.com
+
+Description:
+	This is simple tool to open the input http links by the specified browser
+
+Usage:
+	execution:
+		chmod +x linker.py
+		./linker.py
+
+	operation:
+		paste all the link into the multi-line text area, and then push "Show" button, 
+		the specified browser will open these links  :)
