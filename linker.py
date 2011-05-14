@@ -28,9 +28,9 @@ class Linker:
 		for link in text.split( "\n" ):
 			link = link.strip()
 			if( re.match( "^[http|www]", link ) ):
-				link = link.replace( '(', '\\(' )
-				link = link.replace( ')', '\\)' ) 
-				link = link.replace( '&', '\&' ) 
+				special_chars = [ '(', ')', '&', ';' ]
+				for char in special_chars:
+					link = replace( char, '\\' + char )
 				print link
 				links.append( link )
 				links_text += ' ' + link
