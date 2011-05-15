@@ -30,7 +30,7 @@ class Linker:
 			if( re.match( "^[http|www]", link ) ):
 				special_chars = [ '(', ')', '&', ';' ]
 				for char in special_chars:
-					link = replace( char, '\\' + char )
+					link = link.replace( char, '\\' + char )
 				print link
 				links.append( link )
 				links_text += ' ' + link
