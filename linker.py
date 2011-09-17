@@ -7,6 +7,7 @@ import re
 import os
 import sys
 import urllib
+import platform
 
 class Linker:
 	def delete_event( self, widget, data = None ):
@@ -34,8 +35,18 @@ class Linker:
 				print link
 				links.append( link )
 				links_text += ' ' + link
-		# print links
-		os.system( "/usr/bin/firefox " + links_text )
+
+		# open url 
+		if platform.system() == 'Windows':
+			for link in links:
+				os.system( 'rundll32 url.dll,FileProtocolHandler ' + link )
+		elif platform.system() == 'Linux' and os.path.exists( '/etc/redhat-release' ):
+			for link in links:
+				os.system( "xdg-open " + link )
+		elif platform.system() == 'Linux' and os.path.exists( '/etc/debian_version' ):
+			for link in links:
+				os.system( "sensible-browser " + link )
+
 
 	def destroy( self, widget, data = None ):
 		gtk.main_quit()
